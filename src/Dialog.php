@@ -219,12 +219,14 @@ class Dialog
      */
     public function jump($step)
     {
-        foreach ($this->steps as $index => $value) {
-            if ((is_array($value) && $value['name'] === $step) || $value === $step) {
-                $this->setNext($index);
-                break;
-            }
-        }
+        // foreach ($this->steps as $index => $value) {
+        //     if ((is_array($value) && $value['name'] === $step) || $value === $step) {
+        //         $this->setNext($index);
+        //         break;
+        //     }
+        // }
+
+        $this->setNext($step);
     }
 
     /**
