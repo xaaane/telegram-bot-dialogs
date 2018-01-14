@@ -131,7 +131,7 @@ class Dialogs
             return -1;
         }
 
-        return $this->redis->hget($chatId, 'id');;
+        return $this->redis->hget($update->getChat()->getId(), 'id');;
     }
 
     /**
