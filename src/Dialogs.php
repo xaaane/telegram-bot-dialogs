@@ -62,7 +62,11 @@ class Dialogs
      */
     public function get(Update $update)
     {
-        $chatId = $update->getMessage()->getChat()->getId();
+        if (!is_null($update->getCallbackQuery())) {
+            $chatId = $update->getCallbackQuery()->getMessage()->getChat()->getId();
+        } else {
+            $chatId = $update->getMessage()->getChat()->getId();
+        }
         $redis = $this->redis;
 
         if (!$redis->exists($chatId)) {
