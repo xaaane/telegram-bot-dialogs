@@ -38,6 +38,14 @@ class Dialog
     ];
 
     /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * @param int $next
      */
     public function setNext($next)

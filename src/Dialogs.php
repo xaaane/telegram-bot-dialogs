@@ -50,6 +50,7 @@ class Dialogs
         $chatId = $dialog->getChat()->getId();
         $this->setField($chatId, 'next', $dialog->getNext());
         $this->setField($chatId, 'dialog', get_class($dialog));
+        $this->setField($chatId, 'id', $dialog->getId());
         // @todo It's not safe. Need to define Dialogs registry with check of bindings
 
         return $dialog;
@@ -118,6 +119,19 @@ class Dialogs
         }
 
         return true;
+    }
+
+    /**
+     * @param Update $update
+     * @return int
+     */
+    public function getId(Update $update)
+    {
+        if (!$this->redis->exists($update->getMessage()->getChat()->getId())) {
+            return -1;
+        }
+
+        return $this->redis->hget($chatId, 'id');;
     }
 
     /**
