@@ -114,7 +114,7 @@ class Dialogs
      */
     public function exists(Update $update)
     {
-        if (!$this->redis->exists($update->getMessage()->getChat()->getId())) {
+        if (!$this->redis->exists($update->getChat()->getId())) {
             return false;
         }
 
@@ -127,7 +127,7 @@ class Dialogs
      */
     public function getId(Update $update)
     {
-        if (!$this->redis->exists($update->getMessage()->getChat()->getId())) {
+        if (!$this->redis->exists($update->getChat()->getId())) {
             return -1;
         }
 
