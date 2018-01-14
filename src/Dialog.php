@@ -261,7 +261,11 @@ class Dialog
      */
     public function getChat()
     {
-        return $this->update->getMessage()->getChat();
+        if (!is_null($this->update->getCallbackQuery())) {
+            return $this->update->getCallbackQuery()->getMessage()->getChat();
+        } else {
+            return $this->update->getMessage()->getChat();
+        }
     }
 
     /**
