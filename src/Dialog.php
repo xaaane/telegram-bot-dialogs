@@ -125,7 +125,7 @@ class Dialog
 
         if ($this->isEnd()) { return;}
         $this->telegram->sendChatAction([
-            'chat_id' => $this->update->getMessage()->getChat()->getId(),
+            'chat_id' => $this->getChat()->getId(),
             'action' => Actions::TYPING
         ]);
 
