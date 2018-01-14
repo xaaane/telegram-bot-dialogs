@@ -110,6 +110,26 @@ class Dialogs
 
     /**
      * @param Update $update
+     */
+    public function jump(Update $update, $step)
+    {
+        $dialog = self::get($update);
+
+        if (!$dialog) {
+            return;
+        }
+        $chatId = $dialog->getChat()->getId();
+
+        if ($step > count($dialog->getSteps())) {
+            return;
+        }
+
+        $this->setField($chatId, 'next', $step);
+        $this->setField($chatId, 'memory', $dialog->getMemory());
+    }
+
+    /**
+     * @param Update $update
      * @return bool
      */
     public function exists(Update $update)
