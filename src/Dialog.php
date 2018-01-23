@@ -54,7 +54,7 @@ class Dialog
         $this->next = $next;
 
         $chatId = $this->getChat()->getId();
-        $this->setField($chatId, 'next', $step);
+        $this->setField($chatId, 'next', $next);
     }
 
     /**
