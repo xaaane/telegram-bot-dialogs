@@ -17,7 +17,7 @@ use Symfony\Component\Yaml\Parser;
 use Telegram\Bot\Actions;
 use Telegram\Bot\Api;
 use Telegram\Bot\Objects\Update;
-use Predis\Client as Redis;
+use Log;
 
 /**
  * Class Dialog
@@ -161,6 +161,7 @@ class Dialog
             if (isset($step['is_dich']) && $step['is_dich'] && $this->processYesNo($step)) {
                 return;
             } elseif (!empty($step['jump'])) {
+                Log::info("JUMP! " . $step['jump']);
                 $this->jump($step['jump']);
             }
         }
@@ -221,14 +222,14 @@ class Dialog
      */
     public function jump($step)
     {
-        foreach ($this->steps as $index => $value) {
-            if ((is_array($value) && $value['name'] === $step) || $value === $step) {
-                $this->setNext($index);
-                break;
-            }
-        }
+        // foreach ($this->steps as $index => $value) {
+        //     if ((is_array($value) && $value['name'] === $step) || $value === $step) {
+        //         $this->setNext($index);
+        //         break;
+        //     }
+        // }
 
-        // $this->next = $step;
+        $this->next = $step;
     }
 
     /**
