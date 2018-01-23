@@ -52,9 +52,6 @@ class Dialog
     public function setNext($next)
     {
         $this->next = $next;
-
-        $chatId = $this->getChat()->getId();
-        $this->setField($chatId, 'next', $next);
     }
 
     /**
@@ -85,15 +82,6 @@ class Dialog
         $this->telegram = $telegram;
     }
 
-    /**
-     * @var Redis
-     */
-    protected $redis;
-
-    public function setRedis(Redis $redis)
-    {
-        $this->redis = $redis;
-    }
     /**
      * @var Update
      */
@@ -240,7 +228,7 @@ class Dialog
         //     }
         // }
 
-        $this->setNext($step);
+        $this->next = $step;
     }
 
     /**
@@ -390,18 +378,5 @@ class Dialog
         if (is_string($this->steps) && !empty($this->steps) && is_file($this->steps)) {
             $this->loadSteps($this->steps);
         }
-    }
-
-    protected function setField($key, $field, $value)
-    {
-        $redis = $this->redis;
-
-        $redis->multi();
-
-        $redis->hset($key, $field, $value);
-        // @todo Move to config/settings
-        $redis->expire($key, 300);
-
-        $redis->exec();
     }
 }
