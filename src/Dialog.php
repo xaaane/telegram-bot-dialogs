@@ -31,6 +31,7 @@ class Dialog
      */
     protected $next = 0;
     protected $current = 0;
+    protected $changed = false;
     protected $yes = null;
     protected $no = null;
     protected $aliases = [
@@ -132,6 +133,7 @@ class Dialog
     public function proceed()
     {
         $this->current = $this->next;
+        $this->changed = false;
 
         if ($this->isEnd()) { return;}
         $this->telegram->sendChatAction([
@@ -168,7 +170,7 @@ class Dialog
         $this->$name($step);
 
         // Step forward only if did not changes inside the step handler
-        if ($this->next == $this->current) {
+        if ($this->next == $this->current && !$changed) {
             $this->next++;
         }
 
@@ -229,6 +231,7 @@ class Dialog
         // }
 
         Log::info("Set next to " . $step);
+        $this->changed = true;
         $this->next = $step;
     }
 
