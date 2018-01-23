@@ -170,7 +170,7 @@ class Dialog
         $this->$name($step);
 
         // Step forward only if did not changes inside the step handler
-        if ($this->next == $this->current && !$changed) {
+        if ($this->next == $this->current && !$this->changed) {
             $this->next++;
         }
 
