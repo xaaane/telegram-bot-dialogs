@@ -12,6 +12,7 @@ namespace BotDialogs;
 use Predis\Client as Redis;
 use Telegram\Bot\Api;
 use Telegram\Bot\Objects\Update;
+use Log;
 
 /**
  * Class Dialogs
@@ -103,6 +104,7 @@ class Dialogs
         if ($dialog->isEnd()) {
             $this->redis->del($chatId);
         } else {
+            Log::info("Next is " . $dialog->getNext());
             $this->setField($chatId, 'next', $dialog->getNext());
             $this->setField($chatId, 'memory', $dialog->getMemory());
         }

@@ -314,7 +314,6 @@ class Dialog
         }
 
         if (!empty($step['jump'])) {
-            Log::info("JUMP! " . $step['jump']);
             $this->jump($step['jump']);
         }
 
