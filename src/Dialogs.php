@@ -82,6 +82,7 @@ class Dialogs
         /** @var Dialog $dialog */
         $dialog = new $name($update); // @todo look at the todo above about code safety
         $dialog->setTelegram($this->telegram);
+        $dialog->setRedis($this->redis);
         $dialog->setNext($next);
         $dialog->setMemory($memory);
 
