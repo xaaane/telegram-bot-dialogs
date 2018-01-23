@@ -45,7 +45,6 @@ class Dialogs
     public function add(Dialog $dialog)
     {
         $dialog->setTelegram($this->telegram);
-        $dialog->setRedis($this->redis);
 
         // save new dialog
         $chatId = $dialog->getChat()->getId();
