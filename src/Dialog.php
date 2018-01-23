@@ -228,6 +228,7 @@ class Dialog
         //     }
         // }
 
+        Log::info("Set next to " . $step);
         $this->next = $step;
     }
 
@@ -237,6 +238,7 @@ class Dialog
      */
     public function end()
     {
+        Log::info("Set next to " . count($this->steps));
         $this->next = count($this->steps);
     }
 
