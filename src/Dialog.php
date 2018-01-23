@@ -17,6 +17,7 @@ use Symfony\Component\Yaml\Parser;
 use Telegram\Bot\Actions;
 use Telegram\Bot\Api;
 use Telegram\Bot\Objects\Update;
+use Predis\Client as Redis;
 
 /**
  * Class Dialog
@@ -51,6 +52,9 @@ class Dialog
     public function setNext($next)
     {
         $this->next = $next;
+
+        $chatId = $this->getChat()->getId();
+        $this->setField($chatId, 'next', $step);
     }
 
     /**
@@ -79,6 +83,16 @@ class Dialog
     public function setTelegram(Api $telegram)
     {
         $this->telegram = $telegram;
+    }
+
+    /**
+     * @var Redis
+     */
+    protected $redis;
+
+    public function setRedis(Redis $redis)
+    {
+        $this->redis = $redis;
     }
     /**
      * @var Update
@@ -376,5 +390,18 @@ class Dialog
         if (is_string($this->steps) && !empty($this->steps) && is_file($this->steps)) {
             $this->loadSteps($this->steps);
         }
+    }
+
+    protected function setField($key, $field, $value)
+    {
+        $redis = $this->redis;
+
+        $redis->multi();
+
+        $redis->hset($key, $field, $value);
+        // @todo Move to config/settings
+        $redis->expire($key, 300);
+
+        $redis->exec();
     }
 }
