@@ -161,7 +161,6 @@ class Dialog
             if (isset($step['is_dich']) && $step['is_dich'] && $this->processYesNo($step)) {
                 return;
             } elseif (!empty($step['jump'])) {
-                Log::info("JUMP! " . $step['jump']);
                 $this->jump($step['jump']);
             }
         }
@@ -315,6 +314,7 @@ class Dialog
         }
 
         if (!empty($step['jump'])) {
+            Log::info("JUMP! " . $step['jump']);
             $this->jump($step['jump']);
         }
 
