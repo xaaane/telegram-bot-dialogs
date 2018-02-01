@@ -91,6 +91,21 @@ class Dialogs
     /**
      * @param Update $update
      */
+    public function end(Update $update)
+    {
+        $dialog = self::get($update);
+
+        if (!$dialog) {
+            return;
+        }
+        $chatId = $dialog->getChat()->getId();
+        $this->redis->del($chatId);
+    }
+
+
+    /**
+     * @param Update $update
+     */
     public function proceed(Update $update)
     {
         $dialog = self::get($update);
